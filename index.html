@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>💖 Valentine</title>
 
+<!-- ฟอนต์หวาน -->
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
 body {
   margin: 0;
@@ -14,17 +17,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Kanit", sans-serif;
+  font-family: "Mali", cursive;
 }
 
 .card {
   background: #fff;
-  padding: 40px 30px;
-  border-radius: 25px;
+  padding: 42px 30px;
+  border-radius: 28px;
   text-align: center;
-  width: 90%;
-  max-width: 360px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  width: 92%;
+  max-width: 400px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
   z-index: 10;
   animation: pop .5s ease;
 }
@@ -36,8 +39,15 @@ body {
 
 h1 {
   color: #ff4f87;
-  font-size: 26px;
-  margin-bottom: 25px;
+  font-size: 24px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+p {
+  font-size: 17px;
+  color: #666;
+  line-height: 1.6;
 }
 
 button {
@@ -45,15 +55,16 @@ button {
   color: #fff;
   border: none;
   border-radius: 30px;
-  padding: 12px 26px;
+  padding: 12px 28px;
   font-size: 18px;
   cursor: pointer;
-  margin: 8px;
+  margin: 10px;
   transition: .3s;
+  font-family: "Mali", cursive;
 }
 
 button:hover {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 .no {
@@ -63,35 +74,46 @@ button:hover {
 }
 
 .heart {
-  font-size: 42px;
-  margin-bottom: 15px;
+  font-size: 46px;
+  margin-bottom: 14px;
   animation: beat 1s infinite;
 }
 
 @keyframes beat {
   0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  50% { transform: scale(1.25); }
   100% { transform: scale(1); }
 }
 
 .floating-heart {
   position: absolute;
   bottom: -40px;
-  font-size: 24px;
+  font-size: 26px;
   animation: floatUp 6s linear infinite;
-  opacity: .8;
+  opacity: .85;
 }
 
 @keyframes floatUp {
   from { transform: translateY(0) scale(1); opacity: 1; }
-  to { transform: translateY(-120vh) scale(1.6); opacity: 0; }
+  to { transform: translateY(-120vh) scale(1.7); opacity: 0; }
+}
+
+.shy {
+  animation: shyMove 1.5s infinite;
+}
+
+@keyframes shyMove {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- เพลง (ยังไม่เล่น) -->
+<!-- เพลง -->
 <audio id="bgMusic" loop>
   <source src="เพื่อนรัก.mp3" type="audio/mpeg">
 </audio>
@@ -99,24 +121,30 @@ button:hover {
 <div class="card" id="card">
   <div class="heart">💝</div>
   <h1>Happy Valentine Day!!</h1>
-  <button onclick="next()">ถัดไป ➜</button>
+  <button onclick="next()">กดถัดไปคับแม่ ➜</button>
 </div>
 
 <script>
+const loverName = "Focus"; // ⭐ เปลี่ยนชื่อคนพิเศษตรงนี้
 let step = 0;
 let musicStarted = false;
 
 const texts = [
-  "ผมมีอะไรจะบอกคุณ",
+  `มีไรจะบอกคุณ`,
   "จะบอกละน้าา",
-  "จะบอกละน้าา",
-  "เป็นแฟนกันมั้ยย 💕"
+  "ตั้งใจอ่านด้วยหล่ะะ",
+  `สุขสันต์วันวาเลนไทน์นะ 💕<br>
+   ขอให้ทุกวันของคุณเต็มไปด้วยรอยยิ้ม ความอบอุ่น<br>
+   ขอให้คุณหายกับเรื่องที่คุณเหนื่อยอยู่<br>
+   ขอให้โลกใบนี้ใจดีกับ โฟกัสเพื่อนรัก<br>
+   มีความสุขทุกวันนะ ยิ้มเย้อๆๆๆๆๆๆๆ`,
+  `อืมมีอีกเรื่องอยากจะบอกนะ "เพื่อนรัก"`
 ];
 
 function startMusic() {
   if (!musicStarted) {
     const music = document.getElementById("bgMusic");
-    music.volume = 0.8;
+    music.volume = 0.85;
     music.play();
     musicStarted = true;
   }
@@ -125,18 +153,18 @@ function startMusic() {
 function next() {
   const card = document.getElementById("card");
 
-  if (step < texts.length - 1) {
+  if (step < texts.length) {
     card.innerHTML = `
       <div class="heart">💖</div>
       <h1>${texts[step]}</h1>
-      <button onclick="next()">ถัดไป ➜</button>
+      <button onclick="next()">กดถัดไปคับแม่ ➜</button>
     `;
     step++;
   } else {
     card.innerHTML = `
       <div class="heart">💘</div>
-      <h1>${texts[step]}</h1>
-      <button onclick="yes()">ตกลง 💕</button>
+      <h1 class="shy">ไอ่เพื่อนรัก เป็นแฟนกันนะคั้บบ 💕</h1>
+      <button onclick="yes()">ตกลง 💖</button>
       <button class="no" id="noBtn"
         onmouseover="escapeNo()"
         onclick="escapeNo()">ไม่ตกลง 🙈</button>
@@ -153,14 +181,13 @@ function escapeNo() {
 }
 
 function yes() {
-  // ✅ เพลงเริ่มตรงนี้เท่านั้น
   startMusic();
-
   document.getElementById("card").innerHTML = `
     <div class="heart">💞</div>
-    <h1>เย้! เราเป็นแฟนกันแล้วนะ 🥰</h1>
-    <p style="font-size:18px;color:#555;">
-      ขอบคุณที่รักในสิ่งที่ผมเป็นนะครับบ 💖
+    <h1 class="shy">เย้! ไอ่เพื่อนรัก เอ็งเป็นแฟนกับข้าละนะะ 🥰</h1>
+    <p>
+      ขอบคุณที่รักในสิ่งที่ผมเป็นนะครับบ 💖<br>
+      ขอบคุณที่ทำให้ผมเห็นคุณค่าในตัวเองนะคั้บบ
     </p>
   `;
 }
@@ -174,7 +201,7 @@ setInterval(() => {
   heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 7000);
-}, 350);
+}, 320);
 </script>
 
 </body>
